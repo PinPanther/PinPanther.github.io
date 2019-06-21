@@ -1,21 +1,10 @@
-extends includes/layout
+
+extends includes/layout.pug
 
 block content
-
-    section#wrapper.home
-
-        div.archive
-            h3!='~yeah~baby~'
-            each item in site.posts.sort('date', -1).toArray()
-              - var postTitle = item.title || 'No Title'
-              - var createDate = date(item.date, 'MMM DD')
-              ul
-                  div.post-item
-                      div.post-time=createDate
-                      if item.link
-                          a.post-link(href=url_for(item.link))= postTitle
-                      else
-                          a.post-link(href=url_for(item.path))= postTitle
-
-
+  include ./includes/mixins/article-sort.pug
+  #archive
+    .article-sort-title= 'Articles' + ' - ' + site.posts.length
+    +articleSort(page.posts)
+  include includes/partial/page-nav.pug
 
